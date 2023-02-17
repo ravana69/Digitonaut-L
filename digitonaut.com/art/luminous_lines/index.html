@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from digitonaut.com/art/luminous_lines/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Feb 2023 12:46:56 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset='utf-8'\>
+<meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><title>Luminous Lines</title>
+
+<link type="text/css" rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<script id="vs" type="not-js">
+void main()	{
+  gl_Position = vec4( position, 1.0 );
+}
+</script>
+<script id="fs" type="not-js">
+precision mediump float;
+
+// -------------------------------------------- code from https://glslsandbox.com/ ------------------
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform float time;
+uniform vec2 mouse;
+uniform vec2 resolution;
+uniform sampler2D backbuffer;
+
+void main( void ) {
+	vec2 pos = 8.*gl_FragCoord.xy / resolution-4.;
+	float amnt = 10000.0;
+	float nd = 0.0;
+	vec4 cbuff = vec4(0.0);
+
+	for(float i=0.0; i<10.0;i++){
+	nd =sin(3.93*0.8*pos.x + (i*0.2+sin(+time)*.8) + time)*0.4+0.1 + pos.x;
+	nd *=sin(3.93*0.8*pos.y + (i*0.2+cos(+time)*.8) + time)*0.4+0.1 + pos.y;	
+	amnt = 5.0/abs(nd-pos.y)*0.02 *5./ abs(nd-pos.x)*0.02; 
+	
+	cbuff += vec4(amnt, amnt*0.3 , amnt*pos.t, 1.0);
+	}
+	
+  gl_FragColor = cbuff ;
+}
+
+
+// -------------------------------------------------------------------------------------------------------------------
+
+</script>
+<script src="three.min.js"></script>
+<script src="main.js"></script>
+
+</body>
+
+<!-- Mirrored from digitonaut.com/art/luminous_lines/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Feb 2023 12:47:01 GMT -->
+</html>

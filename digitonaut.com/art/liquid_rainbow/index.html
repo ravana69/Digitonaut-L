@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<!-- Mirrored from digitonaut.com/art/liquid_rainbow/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Feb 2023 12:46:18 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset='utf-8'\>
+<meta name='apple-mobile-web-app-capable' content='yes'><meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'><title>Liquid Rainbow</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div id="container"></div>
+<script id="vertexShader" type="x-shader/x-vertex">
+
+  void main() {
+    gl_Position = vec4(position, 1.0);
+  }
+
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+  uniform vec2 iResolution;
+  uniform float iGlobalTime;
+  
+  
+  void main(void) {
+    float time=iGlobalTime*1.0;
+    vec2 uv = (gl_FragCoord.xy / iResolution.xx-0.5)*8.0;
+    vec2 uv0=uv;
+    float i0=1.0;
+    float i1=1.0;
+    float i2=1.0;
+    float i4=0.0;
+    for(int s=0;s<7;s++)    {
+      vec2 r;
+      r=vec2(cos(uv.y*i0-i4+time/i1),sin(uv.x*i0-i4+time/i1))/i2;
+          r+=vec2(-r.y,r.x)*0.3;
+      uv.xy+=r;
+
+      i0*=1.93;
+      i1*=1.15;
+      i2*=1.7;
+      i4+=0.05+0.1*time*i1;
+    }
+    float r=sin(uv.x-time)*0.5+0.5;
+    float b=sin(uv.y+time)*0.5+0.5;
+    float g=sin((uv.x+uv.y+sin(time*0.5))*0.5)*0.5+0.5;
+	  gl_FragColor = vec4(r,g,b,1.0);
+  }
+</script>
+<script src='84_three.min.js'></script>
+<script  src="script.js"></script>
+
+</body>
+
+<!-- Mirrored from digitonaut.com/art/liquid_rainbow/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 16 Feb 2023 12:46:30 GMT -->
+</html>
